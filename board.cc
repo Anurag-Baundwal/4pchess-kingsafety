@@ -900,6 +900,12 @@ GameResult Board::GetGameResult() {
   if (!IsKingInCheck(player)) {
     return STALEMATE;
   }
+
+  for (int color = 0; color < 4; ++color) {
+    if (lives_[color] <= 0) {
+      return GetTeam(static_cast<PlayerColor>(color)) == RED_YELLOW ? WIN_BG : WIN_RY;
+    }
+  }
   // No legal moves
   PlayerColor color = player.GetColor();
   if (color == RED || color == YELLOW) {
@@ -1059,6 +1065,25 @@ void Board::MakeMove(const Move& move) {
   UpdateTurnHash((t+1)%4);
 
   turn_ = GetNextPlayer(turn_);
+  
+  // After making the move, check if the opponent's king is in check
+  //Player opponent = GetNextPlayer(turn_);
+  /*if (IsKingInCheck(opponent)) {
+    lives_[opponent.GetColor()]--;
+  }*/
+  if (IsKingInCheck(kRedPlayer)) {
+    lives_[kRedPlayer.GetColor()]--;
+  }
+  if (IsKingInCheck(kBluePlayer)) {
+    lives_[kBluePlayer.GetColor()]--;
+  }
+  if (IsKingInCheck(kYellowPlayer)) {
+    lives_[kYellowPlayer.GetColor()]--;
+  }
+  if (IsKingInCheck(kGreenPlayer)) {
+    lives_[kGreenPlayer.GetColor()]--;
+  }
+
   moves_.push_back(move);
 }
 
@@ -1196,6 +1221,11 @@ Board::Board(
     std::optional<EnpassantInitialization> enp)
   : turn_(std::move(turn))
     {
+
+  lives_[RED] = 9;
+  lives_[BLUE] = 11;
+  lives_[YELLOW] = 9;
+  lives_[GREEN] = 11;
 
   for (int color = 0; color < 4; color++) {
     castling_rights_[color] = CastlingRights(false, false);

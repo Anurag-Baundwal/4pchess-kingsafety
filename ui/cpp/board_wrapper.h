@@ -91,7 +91,9 @@ class Board : public MyObjectWrap {
   static void DeleteInstance(void* data) {
     delete static_cast<Board*>(data);
   }
-
+  int GetLives(chess::PlayerColor color) const {
+    return board_->GetLives(color);
+  }
   chess::Board* GetBoard() { return board_.get(); }
 
  private:

@@ -1382,7 +1382,12 @@ int AlphaBetaPlayer::Evaluate(
       }
     }
 
+    int lives_diff = (board.GetLives(RED) + board.GetLives(YELLOW)) -
+      (board.GetLives(BLUE) + board.GetLives(GREEN));
+    eval += lives_diff * 100; // Adjust the bonus factor as needed
   }
+
+
   // w.r.t. maximizing team
   return maximizing_player ? eval : -eval;
 }

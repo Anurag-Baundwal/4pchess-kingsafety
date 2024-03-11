@@ -463,6 +463,8 @@ class Board {
 
   Board(const Board&) = default;
 
+  int GetLives(PlayerColor color) const { return lives_[color]; }
+
   size_t GetPseudoLegalMoves2(Move* buffer, size_t limit);
 
   bool IsKingInCheck(const Player& player) const;
@@ -599,6 +601,7 @@ class Board {
       int incr_col,
       CastlingRights initial_castling_rights = CastlingRights::kMissingRights,
       CastlingRights castling_rights = CastlingRights::kMissingRights) const;
+  int lives_[4]; // lives for each color (RED, BLUE, YELLOW, GREEN)
   int GetMaxRow() const { return 13; }
   int GetMaxCol() const { return 13; }
   std::optional<CastlingType> GetRookLocationType(

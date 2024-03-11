@@ -12,7 +12,7 @@ a {
   min-height: 80px;
 }
 
-.eval-estimate{
+.eval-estimate {
   font-size: 16px;
   padding: 4px;
   padding-left: 18px;
@@ -20,6 +20,12 @@ a {
   padding-bottom: 0;
 }
 
+.lives-info {
+    font-size: 16px;
+    /*padding: 4px;*/
+    padding-left: 18px;
+    font-weight: bold;
+}
 .turn-info {
   font-size: 16px;
   /*padding: 4px;*/
